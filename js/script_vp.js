@@ -87,7 +87,7 @@ function startUpLeafet(tabletopData) {
 		// Create the marker
 
 		// personnalize the marker
-		var markerIcon = L.AwesomeMarkers.icon({icon: tabletopData[num].iconsolvisio, prefix: 'fa', markerColor: tabletopData[num].iconsolvisiocolor});
+		var markerIcon = L.AwesomeMarkers.icon({icon: tabletopData[num].iconvp, prefix: 'fa', markerColor: tabletopData[num].iconvpcolor});
 
 		/*
     	// icon depuis image
@@ -103,18 +103,26 @@ function startUpLeafet(tabletopData) {
 		    orange = new solIcon({iconUrl: 'leaf-orange.png'});
 		*/
 
-    	layer_info = new L.Marker(marker_location,{icon: markerIcon},{bounceOnAdd: true});
+    	layer_info = new L.Marker(marker_location,{icon: markerIcon, bounceOnAdd: true});
 
 
 		    	// Create the popup
     	var popup_info = "<div class=popup_box" + "id=" + num + ">";
-    	popup_info += "<div class='popup_box_header'><strong>" + tabletopData[num].contactprinc0etabl + "</strong></div>";
+    	popup_info += "<div class='popup_box_header'><strong>" + tabletopData[num].contactprinc0etabl + "</strong><br /> Vidéoprojection</div>";
     	popup_info += "<hr />";
-    	popup_info += "<strong>Votre contact :</strong> <a href='mailto:" + tabletopData[num].contactprinc0email + "'>" + tabletopData[num].contactprinc0nom + "</a> ("+tabletopData[num].contactprincdet0fction+"), "+tabletopData[num].contactprincdet0serv+"<br />";
-    	popup_info += "<strong>Services offerts :</strong> " + tabletopData[num].servofferts + "<br />";
-    	popup_info += "<strong>Services en test :</strong> " + tabletopData[num].servtest + "<br />";
-    	popup_info += "<strong>Services en projet :</strong> " + tabletopData[num].servproj + "<br />";
-    	popup_info += "<strong>Services offerts :</strong> " + tabletopData[num].servofferts + "<br />";
+    	if (tabletopData[num].contactvp0email==0) {
+	    	popup_info += "<strong>Votre contact :</strong> <a href='mailto:" + tabletopData[num].contactprinc0email + "'>" + tabletopData[num].contactprinc0nom + "</a> ("+tabletopData[num].contactprincdet0fction+"), "+tabletopData[num].contactprincdet0serv+"<br />";
+    	} else {
+	    	popup_info += "<strong>Votre contact :</strong> <a href='mailto:" + tabletopData[num].contactvp0email + "'>" + tabletopData[num].contactvp0nom + "</a> ("+tabletopData[num].contactvp0fction+"), "+tabletopData[num].contactvp0service+"<br />";
+    	}
+    	popup_info += "<hr />";
+    	popup_info += "<strong>CM :</strong> " + tabletopData[num].vpautonomie0cm + ", éq. fixes : " + tabletopData[num].vp0volumétrie0cm0fix + ", éq. mobiles : " + tabletopData[num].vp0volumétrie0cm0mob + "<br />";
+    	popup_info += "<strong>TD :</strong> " + tabletopData[num].vp0autonomie0td + ", éq. fixes : " + tabletopData[num].vp0volumétrie0td0fix + ", éq. mobiles : " + tabletopData[num].vp0volumétrie0td0mob + "<br />";
+    	popup_info += "<strong>Réunion :</strong> " + tabletopData[num].vp0autonomie0reu + ", éq. fixes : " + tabletopData[num].vp0volumétrie0reu0fix + ", éq. mobiles : " + tabletopData[num].vp0volumétrie0reu0mob + "<br />";
+    	popup_info += "<strong>Conseils :</strong> " + tabletopData[num].vp0autonomie0cons + ", éq. fixes : " + tabletopData[num].vp0volumétrie0cons0fix + ", éq. mobiles : " + tabletopData[num].vp0volumétrie0cons0mob + "<br />";
+    	popup_info += "<strong>Événementiel :</strong> " + + tabletopData[num].vp0autonomie0even + ", éq. fixes : " + tabletopData[num].vp0volumétrie0even0fix + ", éq. mobiles : " + tabletopData[num].vp0volumétrie0even0mob + "<br />";
+    	popup_info += "<hr />";
+    	popup_info += "<strong>Évolution envisagée :</strong> " + tabletopData[num].vp0sol0future + "<br />";
     	//popup_info += "<hr />";
     	//popup_info += "<strong>Onglets :</strong> <a href=\"#\">VP</a> - <a href=\"#\">Visio</a> - <a href=\"#\">EnrVid</a> - <a href=\"#\">Stream</a> - <a href=\"#\">Sondages</a> - <a href=\"#\">Divers</a><br />";
     	popup_info += "</div>";

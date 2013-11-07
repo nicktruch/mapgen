@@ -12,7 +12,6 @@ var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18,attribution: 'Map dat
 // Add to map
 map.addLayer(cloudmade);
 
-/*
 // BAS
 
 // ajouter un marqueur simple
@@ -36,10 +35,6 @@ function onMapClick(e) {
 
 map.on('click', onMapClick);
 
-// utiliser des icones personnalisées
-var inwicast = L.AwesomeMarkers.icon({icon: 'tags', prefix: 'fa', markerColor: 'orange'});
-L.marker([48,3.2],{icon: inwicast}).addTo(map);
-*/
 
 // Here's the Tabletop feed
 // First we'll initialize Tabletop with our spreadsheet
@@ -85,28 +80,10 @@ function startUpLeafet(tabletopData) {
 		// Add to our marker
 		marker_location = new L.LatLng(dataLat, dataLong);
 		// Create the marker
-
-		// personnalize the marker
-		var markerIcon = L.AwesomeMarkers.icon({icon: tabletopData[num].iconsolvisio, prefix: 'fa', markerColor: tabletopData[num].iconsolvisiocolor});
-
-		/*
-    	// icon depuis image
-    	var solIcon = L.Icon.extend({
-		    options: {
-		        iconSize:     [50, 50],
-		        iconAnchor:   [0, 0],
-		        popupAnchor:  [-3, -76]
-		    }
-		});
-		var inwicast = new solIcon({iconUrl: 'inwicast.png'}),
-		    ubicast = new solIcon({iconUrl: 'ubicast.png'}),
-		    orange = new solIcon({iconUrl: 'leaf-orange.png'});
-		*/
-
-    	layer_info = new L.Marker(marker_location,{icon: markerIcon},{bounceOnAdd: true});
-
-
-		    	// Create the popup
+    	layer_info = new L.Marker(marker_location, {bounceOnAdd: true});
+    	layer_enrvid = new L.Marker(marker_location, {bounceOnAdd: true});
+    
+    	// Create the popup
     	var popup_info = "<div class=popup_box" + "id=" + num + ">";
     	popup_info += "<div class='popup_box_header'><strong>" + tabletopData[num].contactprinc0etabl + "</strong></div>";
     	popup_info += "<hr />";
@@ -115,16 +92,29 @@ function startUpLeafet(tabletopData) {
     	popup_info += "<strong>Services en test :</strong> " + tabletopData[num].servtest + "<br />";
     	popup_info += "<strong>Services en projet :</strong> " + tabletopData[num].servproj + "<br />";
     	popup_info += "<strong>Services offerts :</strong> " + tabletopData[num].servofferts + "<br />";
-    	//popup_info += "<hr />";
-    	//popup_info += "<strong>Onglets :</strong> <a href=\"#\">VP</a> - <a href=\"#\">Visio</a> - <a href=\"#\">EnrVid</a> - <a href=\"#\">Stream</a> - <a href=\"#\">Sondages</a> - <a href=\"#\">Divers</a><br />";
+    	popup_info += "<hr />";
+    	popup_info += "<strong>Onglets :</strong> <a href=\"#\">VP</a> - <a href=\"#\">Visio</a> - <a href=\"#\">EnrVid</a> - <a href=\"#\">Stream</a> - <a href=\"#\">Sondages</a> - <a href=\"#\">Divers</a><br />";
     	popup_info += "</div>";
 
+    	var popup_enrvid = "<div class=popup_box" + "id=" + num + ">";
+    	popup_enrvid += "<div class='popup_box_header'><strong>" + tabletopData[num].contactprinc0etabl + "</strong> / Services d'Enregistrement vidéo</div>";
+    	popup_enrvid += "<hr />";
+    	popup_enrvid += "<strong>Votre contact :</strong> <a href='mailto:" + tabletopData[num].contactprinc0email + "'>" + tabletopData[num].contactprinc0nom + "</a> ("+tabletopData[num].contactprincdet0fction+"), "+tabletopData[num].contactprincdet0serv+"<br />";
+    	popup_enrvid += "<strong>Services offerts :</strong> " + tabletopData[num].servofferts + "<br />";
+    	popup_enrvid += "<strong>Services en test :</strong> " + tabletopData[num].servtest + "<br />";
+    	popup_enrvid += "<strong>Services en projet :</strong> " + tabletopData[num].servproj + "<br />";
+    	popup_enrvid += "<strong>Services offerts :</strong> " + tabletopData[num].servofferts + "<br />";
+    	popup_enrvid += "<hr />";
+    	popup_enrvid += "<strong>Onglets :</strong> <a href=\"#\">VP</a> - <a href=\"#\">Visio</a> - <a href=\"#\">EnrVid</a> - <a href=\"#\">Stream</a> - <a href=\"#\">Sondages</a> - <a href=\"#\">Divers</a><br />";
+    	popup_enrvid += "</div>";
 
     	// Add to our marker
 		layer_info.bindPopup(popup_info);
+		layer_enrvid.bindPopup(popup_enrvid);
 	
 		// Add marker to our to map
 		map.addLayer(layer_info);
+		map.addLayer(layer_enrvid);
 	}
 };
 
