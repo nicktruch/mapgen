@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leaflet Quick Start Guide Example</title>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+<link rel="stylesheet" href="Leaflet.TileLegend/Leaflet.TileLegend.css">
+<link rel="stylesheet" href="css/style.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" href="../dist/leaflet.ie.css" /><![endif]-->
+</head>
+<body>
+	<div id="map" style="width: 600px; height: 400px"></div>
+
+ <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+ <script src="Leaflet.TileLegend/Leaflet.TileLegend.js"></script>
+	<script>
+
+		// création des objets marqueurs
+		var littleton = L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.'),
+		    denver    = L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.'),
+		    aurora    = L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.'),
+		    golden    = L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.');
+
+		// création de l'objet groupe cities
+		var cities = L.layerGroup([littleton, denver, aurora, golden]);
+
+		var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/{styleId}/256/{z}/{x}/{y}.png',
+		    cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade';
+
+		var minimal   = L.tileLayer(cloudmadeUrl, {styleId: 997, attribution: cloudmadeAttribution}),
+		    midnight  = L.tileLayer(cloudmadeUrl, {styleId: 999,   attribution: cloudmadeAttribution}),
+		    motorways = L.tileLayer(cloudmadeUrl, {styleId: 46561, attribution: cloudmadeAttribution});
+
+		var map = L.map('map', {
+		    center: new L.LatLng(39.73, -104.99),
+		    zoom: 10,
+		    layers: [minimal, motorways, cities]
+		});
+
+		var baseMaps = {
+		    "Minimal": minimal,
+		    "Night View": midnight
+		};
+
+		var overlayMaps = {
+		    "Motorways": motorways,
+		    "Cities": cities
+		};
+
+		L.control.layers(baseMaps,overlayMaps).addTo(map);
+
+		// add legend
+
+		var legend = L.control({position: 'bottomright'});
+
+		legend.onAdd = function (map) {
+			var div = L.DomUtil.create('div', 'info legend'),
+			    grades = ['rouge','violet','bleu'],
+			    labels = ['inwicast','ubicast','apple'];
+
+			// loop through our density intervals and generate a label with a colored square for each interval
+			for (var i = 0; i < grades.length; i++) {
+			    div.innerHTML +=
+			        '<i style="background:10"></i> ' +
+			        grades[i] + '&ndash;' + labels[i] + '<br>';
+			}
+
+			return div;
+		};
+
+		legend.addTo(map);
+
+
+	</script>
+</body>
+</html>
