@@ -315,7 +315,7 @@ function startUpLeafet(tabletopData) {
 			// Create the marker
 			if ( tabletopData[num].autr0idbadge.length!=0 || tabletopData[num].autr0interfaceperso.length!=0 || tabletopData[num].autr0dblevp.length!=0 ) {
 		    	layer_info = new L.Marker(marker_location,{icon: markerIcon, bounceOnAdd: true});
-		    	alert ('idbadge:'+tabletopData[num].autr0idbadge.length+' interfaceperso:'+tabletopData[num].autr0interfaceperso.length+' autr0dblevp:'+tabletopData[num].autr0dblevp.length);
+		    	// alert ('idbadge:'+tabletopData[num].autr0idbadge.length+' interfaceperso:'+tabletopData[num].autr0interfaceperso.length+' autr0dblevp:'+tabletopData[num].autr0dblevp.length);
 	    	// Create the popup
 	    	var popup_info = "<div class=popup_box" + "id=" + num + ">";
 	    	popup_info += "<div class='popup_box_header'><strong>" + tabletopData[num].contactprinc0etabl + "</strong><br /> Autres services</strong></div>";
@@ -343,58 +343,111 @@ function startUpLeafet(tabletopData) {
 		map.addLayer(layer_info);
 	}
 
-	// ajout des légendes
+	// add legend
 
-	var legend = {
-	    title: "HOT style",
-	    description: "Humanitarian focused OSM base layer.",
-	    sections: [{
-	        title: 'Roads',
-	        className: 'roads',
-	        keys: [
-	            {
-	                coordinates: [19.67236, -72.11825, 15],
-	                text: "Paved primary road"
-	            },
-	            {
-	                coordinates: [19.8090, -72.4498, 15],
-	                text: "Paved secondary road"
-	            },
-	            {
-	                coordinates: [19.72434, -72.16495, 15],
-	                text: "highway=tertiary"
-	            }
-	        ]
-	    },
-	    {
-	        title: 'Health & education',
-	        className: 'poi',
-	        keys: [
-	            {
-	                coordinates: [19.67108, -72.12233, 19],
-	                text: "Hospital"
-	            },
-	            {
-	                coordinates: [19.67269, -72.12493, 19],
-	                text: "Pharmacy"
-	            },
-	            {
-	                coordinates: [19.65555, -72.07040, 17],
-	                text: "University"
-	            },
-	            {
-	                coordinates: [19.54809, -71.72016, 19],
-	                text: "School"
-	            },
-	            {
-	                coordinates: [19.55134, -71.72704, 19],
-	                text: "Kindergarden"
-	            }
-	        ]
-	    }
-	]};
+	var legend = L.control({position: 'bottomright'});
 
-	legend.addTo(layer_info);
+	legend.onAdd = function (map) {
+
+		switch (mapCalled) {
+		case "info": 
+		var div = L.DomUtil.create('div', 'info legend'),
+		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
+		    labels = ['inwicast','ubicast','apple'];
+
+		div.innerHTML += "This is INFO legend<br>";
+
+		for (var i = 0; i < grades.length; i++) {
+		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		}
+		break;
+		case "vp": 
+		var div = L.DomUtil.create('div', 'info legend'),
+		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
+		    labels = ['inwicast','ubicast','apple'];
+
+		div.innerHTML += "This is VP legend<br>";
+
+		for (var i = 0; i < grades.length; i++) {
+		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		}
+		break;
+		case "visio": 
+		var div = L.DomUtil.create('div', 'info legend'),
+		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
+		    labels = ['inwicast','ubicast','apple'];
+
+		div.innerHTML += "This is VISIO legend<br>";
+
+		for (var i = 0; i < grades.length; i++) {
+		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		}
+		break;
+		case "enrvid": 
+		var div = L.DomUtil.create('div', 'info legend'),
+		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
+		    labels = ['inwicast','ubicast','apple'];
+
+		div.innerHTML += "This is ENRVID legend<br>";
+
+		for (var i = 0; i < grades.length; i++) {
+		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		}
+		break;
+		case "stream": 
+		var div = L.DomUtil.create('div', 'info legend'),
+		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
+		    labels = ['inwicast','ubicast','apple'];
+
+		div.innerHTML += "This is STREAM legend<br>";
+
+		for (var i = 0; i < grades.length; i++) {
+		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		}
+		break;
+		case "sondag": 
+		var div = L.DomUtil.create('div', 'info legend'),
+		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
+		    labels = ['inwicast','ubicast','apple'];
+
+		div.innerHTML += "This is SONDAGES legend<br>";
+
+		for (var i = 0; i < grades.length; i++) {
+		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		}
+		break;
+		case "autom": 
+		var div = L.DomUtil.create('div', 'info legend'),
+		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
+		    labels = ['inwicast','ubicast','apple'];
+
+		div.innerHTML += "This is AUTOM legend<br>";
+
+		for (var i = 0; i < grades.length; i++) {
+		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		}
+		break;
+		case "autr": 
+		var div = L.DomUtil.create('div', 'info legend'),
+		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
+		    labels = ['inwicast','ubicast','apple'];
+
+		div.innerHTML += "This is AUTRES legend<br>";
+
+		for (var i = 0; i < grades.length; i++) {
+		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		}
+		break;
+		default :
+			div.innerHTML += "This is no legend<br>";
+		}
+		div.innerHTML += "<a href='index.html'>Home</a> - <a href='vp.html'>VP</a> - <a href='visio.html'>Visio</a> - <a href='enrvid.html'>EnrVid</a> - <a href='stream.html'>Stream</a> - <a href='sondag.html'>Sondages</a> - <a href='autom.html'>Autom</a> - <a href='autr.html'>Autres</a>";
+
+
+		return div;
+	};
+
+	legend.addTo(map);
 
 };
 

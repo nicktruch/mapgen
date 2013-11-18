@@ -58,14 +58,14 @@
 
 		legend.onAdd = function (map) {
 			var div = L.DomUtil.create('div', 'info legend'),
-			    grades = ['rouge','violet','bleu'],
+			    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
 			    labels = ['inwicast','ubicast','apple'];
 
-			// loop through our density intervals and generate a label with a colored square for each interval
+			div.innerHTML += "This is my legend and I like it very much<br>";
+			div.innerHTML += "This is my legend<br>";
+
 			for (var i = 0; i < grades.length; i++) {
-			    div.innerHTML +=
-			        '<i style="background:10"></i> ' +
-			        grades[i] + '&ndash;' + labels[i] + '<br>';
+			    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
 			}
 
 			return div;
