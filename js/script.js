@@ -158,9 +158,11 @@ function startUpLeafet(tabletopData) {
 		    	popup_info += "<hr />";
 		    	popup_info += "<strong>Options :</strong> " + tabletopData[num].visio0options0other + tabletopData[num].visio0sol0future0comment + "<br />";
 		    	popup_info += "<hr />";
-		    	popup_info += "<strong>Solution actuelle :</strong> " + tabletopData[num].visio0sol0actuelle + tabletopData[num].visio0sol0actuelle0comment + "<br />";
+		    	popup_info += "<strong>Solution actuelle :</strong> " + tabletopData[num].visio0sol0actuelle + ", " + tabletopData[num].visio0sol0actuelle0comment + "<br />";
 		    	popup_info += "<strong>Projet d'évolution :</strong> " + tabletopData[num].visio0evolution + "<br />";
-		    	popup_info += "<strong>Solution envisagée :</strong> " + tabletopData[num].visio0sol0future + tabletopData[num].visio0sol0future0comment + "<br />";
+		    	if (tabletopData[num].visio0evolution=='Oui') {
+		    		popup_info += "<strong>Solution envisagée :</strong> " + tabletopData[num].visio0sol0future + ", " + tabletopData[num].visio0sol0future0comment + "<br />";
+		    	}
 		    	popup_info += tabletopData[num].visio0remarq + "<br />";
 		    	//popup_info += "<hr />";
 		    	//popup_info += "<strong>Onglets :</strong> <a href=\"#\">VP</a> - <a href=\"#\">Visio</a> - <a href=\"#\">EnrVid</a> - <a href=\"#\">Stream</a> - <a href=\"#\">Sondages</a> - <a href=\"#\">Divers</a><br />";
@@ -168,8 +170,12 @@ function startUpLeafet(tabletopData) {
 	    	}
 		break;
 		case "enrvid":
+			// make icon spin
+			var markerSpin = false;
+			if (!tabletopData[num].enrvid0sol0actuelle&&tabletopData[num].enrvid0sol0future) {markerSpin = true};
+
 			// personnalize the marker
-			var markerIcon = L.AwesomeMarkers.icon({icon: tabletopData[num].iconenrvid, prefix: 'fa', markerColor: tabletopData[num].iconenrvidcolor});
+			var markerIcon = L.AwesomeMarkers.icon({icon: tabletopData[num].iconenrvid, prefix: 'fa', markerColor: tabletopData[num].iconenrvidcolor, spin: markerSpin});
 
 			// Create the marker
 			if (tabletopData[num].iconenrvidcolor) {
@@ -197,9 +203,11 @@ function startUpLeafet(tabletopData) {
 		    	popup_info += "<hr />";
 		    	popup_info += "<strong>Diffusion :</strong> " + tabletopData[num].enrvid0diffusion0other + "<br />";
 		    	popup_info += "<hr />";
-		    	popup_info += "<strong>Solution actuelle :</strong> " + tabletopData[num].enrvid0sol0actuelle + tabletopData[num].enrvid0sol0actuelle0comment + "<br />";
+		    	popup_info += "<strong>Solution actuelle :</strong> " + tabletopData[num].enrvid0sol0actuelle + ", " + tabletopData[num].enrvid0sol0actuelle0comment + "<br />";
 		    	popup_info += "<strong>Projet d'évolution :</strong> " + tabletopData[num].enrvid0evolution + "<br />";
-		    	popup_info += "<strong>Solution envisagée :</strong> " + tabletopData[num].enrvid0sol0future + tabletopData[num].enrvid0sol0future0comment + "<br />";
+		    	if (tabletopData[num].enrvid0evolution=='Oui') {
+		    	   	popup_info += "<strong>Solution envisagée :</strong> " + tabletopData[num].enrvid0sol0future + ", " + tabletopData[num].enrvid0sol0future0comment + "<br />";
+		    	   }
 		    	popup_info += tabletopData[num].enrvid0remarq + "<br />";
 		    	//popup_info += "<hr />";
 		    	//popup_info += "<strong>Onglets :</strong> <a href=\"#\">VP</a> - <a href=\"#\">Visio</a> - <a href=\"#\">EnrVid</a> - <a href=\"#\">Stream</a> - <a href=\"#\">Sondages</a> - <a href=\"#\">Divers</a><br />";
@@ -234,9 +242,11 @@ function startUpLeafet(tabletopData) {
 		    	popup_info += "<strong>Conseils :</strong> " + tabletopData[num].stream0autonomie0cons + ", éq. fixes : " + tabletopData[num].stream0volumétrie0cons0fix + ", éq. mobiles : " + tabletopData[num].stream0volumétrie0cons0mob + "<br />";
 		    	popup_info += "<strong>Événementiel :</strong> " + tabletopData[num].stream0autonomie0even + ", éq. fixes : " + tabletopData[num].stream0volumétrie0even0fix + ", éq. mobiles : " + tabletopData[num].stream0volumétrie0even0mob + "<br />";
 		    	popup_info += "<hr />";
-		     	popup_info += "<strong>Solution actuelle :</strong> " + tabletopData[num].stream0sol0actuelle + tabletopData[num].stream0sol0actuelle0comment + "<br />";
+		     	popup_info += "<strong>Solution actuelle :</strong> " + tabletopData[num].stream0sol0actuelle + ", " + tabletopData[num].stream0sol0actuelle0comment + "<br />";
 		    	popup_info += "<strong>Projet d'évolution :</strong> " + tabletopData[num].stream0evolution + "<br />";
-		    	popup_info += "<strong>Solution envisagée :</strong> " + tabletopData[num].stream0sol0future + tabletopData[num].stream0sol0future0comment + "<br />";
+		    	if (tabletopData[num].stream0evolution=='oui') {
+		    		popup_info += "<strong>Solution envisagée :</strong> " + tabletopData[num].stream0sol0future + ", " + tabletopData[num].stream0sol0future0comment + "<br />";
+		    	}
 		    	popup_info += tabletopData[num].stream0remarq + "<br />";
 		    	//popup_info += "<hr />";
 		    	//popup_info += "<strong>Onglets :</strong> <a href=\"#\">VP</a> - <a href=\"#\">Visio</a> - <a href=\"#\">stream</a> - <a href=\"#\">Stream</a> - <a href=\"#\">Sondages</a> - <a href=\"#\">Divers</a><br />";
@@ -267,9 +277,11 @@ function startUpLeafet(tabletopData) {
 		    	popup_info += "<strong>Conseils :</strong> " + tabletopData[num].sondag0autonomie0cons + ", éq. fixes : " + tabletopData[num].sondag0volumétrie0cons0fix + ", éq. mobiles : " + tabletopData[num].sondag0volumétrie0cons0mob + "<br />";
 		    	popup_info += "<strong>Événementiel :</strong> " + tabletopData[num].sondag0autonomie0even + ", éq. fixes : " + tabletopData[num].sondag0volumétrie0even0fix + ", éq. mobiles : " + tabletopData[num].sondag0volumétrie0even0mob + "<br />";
 		    	popup_info += "<hr />";
-		     	popup_info += "<strong>Solution actuelle :</strong> " + tabletopData[num].sondag0sol0actuelle0produit + tabletopData[num].sondag0sol0actuelle0fab + "<br />";
+		     	popup_info += "<strong>Solution actuelle :</strong> " + tabletopData[num].sondag0sol0actuelle0produit + ", " + tabletopData[num].sondag0sol0actuelle0fab + "<br />";
 		    	popup_info += "<strong>Projet d'évolution :</strong> " + tabletopData[num].sondag0evolution + "<br />";
-		    	popup_info += "<strong>Solution envisagée :</strong> " + tabletopData[num].sondag0sol0future0produit + tabletopData[num].sondag0sol0future0fab + "<br />";
+		    	if (tabletopData[num].sondag0evolution=='oui'){
+		    		popup_info += "<strong>Solution envisagée :</strong> " + tabletopData[num].sondag0sol0future0produit + ", " + tabletopData[num].sondag0sol0future0fab + "<br />";
+		    	}
 		    	popup_info += tabletopData[num].sondag0remarq + "<br />";
 		    	//popup_info += "<hr />";
 		    	//popup_info += "<strong>Onglets :</strong> <a href=\"#\">VP</a> - <a href=\"#\">Visio</a> - <a href=\"#\">sondag</a> - <a href=\"#\">sondag</a> - <a href=\"#\">Sondages</a> - <a href=\"#\">Divers</a><br />";
@@ -300,9 +312,11 @@ function startUpLeafet(tabletopData) {
 		    	popup_info += "<strong>Conseils :</strong> " + tabletopData[num].autom0autonomie0cons + ", éq. fixes : " + tabletopData[num].autom0volumétrie0cons0fix + ", éq. mobiles : " + tabletopData[num].autom0volumétrie0cons0mob + "<br />";
 		    	popup_info += "<strong>Événementiel :</strong> " + tabletopData[num].autom0autonomie0even + ", éq. fixes : " + tabletopData[num].autom0volumétrie0even0fix + ", éq. mobiles : " + tabletopData[num].autom0volumétrie0even0mob + "<br />";
 		    	popup_info += "<hr />";
-		     	popup_info += "<strong>Solution actuelle :</strong> " + tabletopData[num].autom0sol0actuelle0produit + tabletopData[num].autom0sol0actuelle0fab + "<br />";
+		     	popup_info += "<strong>Solution actuelle :</strong> " + tabletopData[num].autom0sol0actuelle0produit + ", " + tabletopData[num].autom0sol0actuelle0fab + "<br />";
 		    	popup_info += "<strong>Projet d'évolution :</strong> " + tabletopData[num].autom0evolution + "<br />";
-		    	popup_info += "<strong>Solution envisagée :</strong> " + tabletopData[num].autom0sol0future0produit + tabletopData[num].autom0sol0future0fab + "<br />";
+		    	if (tabletopData[num].autom0evolution=='oui') {
+		    		popup_info += "<strong>Solution envisagée :</strong> " + tabletopData[num].autom0sol0future0produit + ", " + tabletopData[num].autom0sol0future0fab + "<br />";
+		    	}
 		    	popup_info += tabletopData[num].autom0remarq + "<br />";
 		    	//popup_info += "<hr />";
 		    	//popup_info += "<strong>Onglets :</strong> <a href=\"#\">VP</a> - <a href=\"#\">Visio</a> - <a href=\"#\">autom</a> - <a href=\"#\">autom</a> - <a href=\"#\">automes</a> - <a href=\"#\">Divers</a><br />";
@@ -344,7 +358,6 @@ function startUpLeafet(tabletopData) {
 	}
 
 	// add legend
-
 	var legend = L.control({position: 'bottomright'});
 
 	legend.onAdd = function (map) {
@@ -352,96 +365,103 @@ function startUpLeafet(tabletopData) {
 		switch (mapCalled) {
 		case "info": 
 		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
-		    labels = ['inwicast','ubicast','apple'];
+		    //grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
+		    grades = ['darkred','darkred','darkred'],
+		    labels = ['xxx','xxx','xxx'];
 
-		div.innerHTML += "This is INFO legend<br>";
+		div.innerHTML += "This is INFO legend<br><hr />";
 
 		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		    //div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
 		}
 		break;
 		case "vp": 
 		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
-		    labels = ['inwicast','ubicast','apple'];
+		    grades = ['darkred','darkred','darkred'],
+		    labels = ['xxx','xxx','xxx'];
 
-		div.innerHTML += "This is VP legend<br>";
+		div.innerHTML += "This is VP legend<br><hr />";
 
 		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
 		}
 		break;
 		case "visio": 
 		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
-		    labels = ['inwicast','ubicast','apple'];
+		    grades = ['darkred','darkred','darkred'],
+		    labels = ['xxx','xxx','xxx'];
 
-		div.innerHTML += "This is VISIO legend<br>";
+		div.innerHTML += "This is VISIO legend<br><hr />";
+
 
 		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
+
 		}
 		break;
 		case "enrvid": 
 		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
-		    labels = ['inwicast','ubicast','apple'];
+		    grades = ['green','purple','orange','blue','cadetblue'],
+		    labels = ['Ubicast','Mediasite','Inwicast','AudioVidéoCast','Apple Podcast Producer'];
 
-		div.innerHTML += "This is ENRVID legend<br>";
+		div.innerHTML += "This is ENRVID legend<br><hr />";
 
 		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
 		}
 		break;
 		case "stream": 
 		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
-		    labels = ['inwicast','ubicast','apple'];
+		    grades = ['darkred','darkred','darkred'],
+		    labels = ['xxx','xxx','xxx'];
 
-		div.innerHTML += "This is STREAM legend<br>";
+		div.innerHTML += "This is STREAM legend<br><hr />";
 
 		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
 		}
 		break;
 		case "sondag": 
 		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
-		    labels = ['inwicast','ubicast','apple'];
+		    grades = ['darkred','darkred','darkred'],
+		    labels = ['xxx','xxx','xxx'];
 
-		div.innerHTML += "This is SONDAGES legend<br>";
+		div.innerHTML += "This is SONDAGES legend<br><hr />";
 
 		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
 		}
 		break;
 		case "autom": 
 		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
-		    labels = ['inwicast','ubicast','apple'];
+		    grades = ['darkred','darkred','darkred'],
+		    labels = ['xxx','xxx','xxx'];
 
-		div.innerHTML += "This is AUTOM legend<br>";
+		div.innerHTML += "This is AUTOM legend<br><hr />";
 
 		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
 		}
 		break;
 		case "autr": 
 		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
-		    labels = ['inwicast','ubicast','apple'];
+		    grades = ['darkred','darkred','darkred'],
+		    labels = ['xxx','xxx','xxx'];
 
-		div.innerHTML += "This is AUTRES legend<br>";
+		div.innerHTML += "This is AUTRES legend<br><hr />";
 
 		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
+		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
 		}
 		break;
 		default :
-			div.innerHTML += "This is no legend<br>";
+			div.innerHTML += "This is no legend<br><hr />";
 		}
-		div.innerHTML += "<a href='index.html'>Home</a> - <a href='vp.html'>VP</a> - <a href='visio.html'>Visio</a> - <a href='enrvid.html'>EnrVid</a> - <a href='stream.html'>Stream</a> - <a href='sondag.html'>Sondages</a> - <a href='autom.html'>Autom</a> - <a href='autr.html'>Autres</a>";
+		
+		div.innerHTML += "<em>Les icônes en rotation symbolisent des chantiers en cours.</em><br>";
+		div.innerHTML += "<hr />";
+		div.innerHTML += "<a href='index.html'>Accueil</a> - <a href='vp.html'>VP</a> - <a href='visio.html'>Visio</a> - <a href='enrvid.html'>EnrVid</a> - <a href='stream.html'>Stream</a> - <a href='sondag.html'>Sondages</a> - <a href='autom.html'>Autom</a> - <a href='autr.html'>Autres</a>";
 
 
 		return div;
@@ -450,7 +470,6 @@ function startUpLeafet(tabletopData) {
 	legend.addTo(map);
 
 };
-
 
 
 // Toggle for 'About this map' and X buttons
