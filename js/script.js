@@ -1,3 +1,14 @@
+// myVariables
+var myGreen = '#70AD25';
+var myPurple = '#D051B7';
+var myOrange = '#F49630';
+var myBlue = '#37A8DA';
+var myCadetblue = '#426776';
+var myRed = '#D33D2A';
+var myDarkred = '#8B0000';
+var myDarkgreen = '#728224';
+var myDarkpurple = '#5A386A';
+
 // get the incoming var
 var mapCalled = document.getElementById( "mapCaller" ).getAttribute( "mapName" );
 //alert ("script.js : mapCalled:"+mapCalled);
@@ -84,7 +95,7 @@ function startUpLeafet(tabletopData) {
 		switch (mapCalled) {
 		case "info": 
 			// personnalize the marker
-			var markerIcon = L.AwesomeMarkers.icon({icon: tabletopData[num].iconsolvisio, prefix: 'fa', markerColor: tabletopData[num].iconsolvisiocolor});
+			var markerIcon = L.AwesomeMarkers.icon({icon: 'fa-building-o', prefix: 'fa', markerColor: 'blue'});
 			// Create the marker
 	    	layer_info = new L.Marker(marker_location,{icon: markerIcon, bounceOnAdd: true});
 	    	// Create the popup
@@ -129,8 +140,12 @@ function startUpLeafet(tabletopData) {
 	    	}
 		break;
 		case "visio":
+		// make icon spin
+		var markerSpin = false;
+		if ((!tabletopData[num].visio0sol0actuelle&&tabletopData[num].visio0sol0future)||(tabletopData[num].visio0evolution=='Oui')) {markerSpin = true};
+
 			// personnalize the marker
-			var markerIcon = L.AwesomeMarkers.icon({icon: tabletopData[num].iconvisio, prefix: 'fa', markerColor: tabletopData[num].iconvisiocolor});
+			var markerIcon = L.AwesomeMarkers.icon({icon: tabletopData[num].iconvisio, prefix: 'fa', markerColor: tabletopData[num].iconvisiocolor, spin: markerSpin});
 
 	        // Create the marker
 			if (tabletopData[num].iconvisiocolor) {
@@ -172,7 +187,7 @@ function startUpLeafet(tabletopData) {
 		case "enrvid":
 			// make icon spin
 			var markerSpin = false;
-			if (!tabletopData[num].enrvid0sol0actuelle&&tabletopData[num].enrvid0sol0future) {markerSpin = true};
+			if ((!tabletopData[num].enrvid0sol0actuelle&&tabletopData[num].enrvid0sol0future)||(tabletopData[num].enrvid0evolution=='Oui')) {markerSpin = true};
 
 			// personnalize the marker
 			var markerIcon = L.AwesomeMarkers.icon({icon: tabletopData[num].iconenrvid, prefix: 'fa', markerColor: tabletopData[num].iconenrvidcolor, spin: markerSpin});
@@ -215,8 +230,12 @@ function startUpLeafet(tabletopData) {
 	    	}
 		break;
 		case "stream":
+			// make icon spin
+			var markerSpin = false;
+			if ((!tabletopData[num].stream0sol0actuelle&&tabletopData[num].stream0sol0future)||(tabletopData[num].stream0evolution=='Oui')) {markerSpin = true};
+
 			// personnalize the marker
-			var markerIcon = L.AwesomeMarkers.icon({icon: tabletopData[num].iconstream, prefix: 'fa', markerColor: tabletopData[num].iconstreamcolor});
+			var markerIcon = L.AwesomeMarkers.icon({icon: tabletopData[num].iconstream, prefix: 'fa', markerColor: tabletopData[num].iconstreamcolor, spin: markerSpin});
 
 			// Create the marker
 			if (tabletopData[num].iconstreamcolor) {
@@ -363,103 +382,132 @@ function startUpLeafet(tabletopData) {
 	legend.onAdd = function (map) {
 
 		switch (mapCalled) {
-		case "info": 
+		case "info":
+
 		var div = L.DomUtil.create('div', 'info legend'),
 		    //grades = ['<img src="images/tel-purple.png">','<img src="images/tel-purple.png">','<img src="images/tel-purple.png">'],
-		    grades = ['darkred','darkred','darkred'],
-		    labels = ['xxx','xxx','xxx'];
-
-		div.innerHTML += "This is INFO legend<br><hr />";
-
-		for (var i = 0; i < grades.length; i++) {
-		    //div.innerHTML += grades[i] + ' : ' + labels[i] + '<br>';
-		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
-		}
+		    grades = [myBlue],
+		    labels = ['Établissements'];
+		div.innerHTML += "Établissements recensés<br><hr />";
+			// solutions
+			for (var i = 0; i < grades.length; i++) {
+			    div.innerHTML += '<div class="solution"><i class="fa fa-square" style="color:' + grades[i] + '"></i></div><div>&nbsp;' + labels[i] + '</div>';
+			}
+			/*
+			// services
+			div.innerHTML += '<div class="service"><i class="fa fa-building-o" color="blue"></i></div><div>Établissements</div>';
+			*/
 		break;
 		case "vp": 
 		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['darkred','darkred','darkred'],
-		    labels = ['xxx','xxx','xxx'];
-
-		div.innerHTML += "This is VP legend<br><hr />";
-
-		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
-		}
+		    grades = [myCadetblue],
+		    labels = ['Vidéoprojection'];
+		div.innerHTML += "Services de VIDÉOPROJECTION<br><hr />";
+			// solutions
+			for (var i = 0; i < grades.length; i++) {
+			    div.innerHTML += '<div class="solution"><i class="fa fa-square" style="color:' + grades[i] + '"></i></div><div>&nbsp;' + labels[i] + '</div>';
+			}
+			// services
+			/*
+			div.innerHTML += '<div class="service"><i class="fa fa-eye"></i></div><div>Solutions WEB</div>';
+			div.innerHTML += '<div class="service"><i class="fa fa-phone"></i></div><div>Solutions H323</div>';
+			*/
 		break;
 		case "visio": 
 		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['darkred','darkred','darkred'],
-		    labels = ['xxx','xxx','xxx'];
-
-		div.innerHTML += "This is VISIO legend<br><hr />";
-
-
-		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
-
-		}
+		    grades = [myGreen,myPurple,myOrange,myDarkpurple,myCadetblue,myRed,myBlue,myDarkred,myDarkgreen],
+		    labels = ['Tandberg','Polycom','LifeZize','RadVision','Cisco Quickset','Adobe Connect','BigBlueButton','Elluminate Classe virtuelle','Non déterminée'];
+		div.innerHTML += "Services de VISIOCONFÉRENCE<br><hr />";
+			// solutions
+			for (var i = 0; i < grades.length; i++) {
+			    div.innerHTML += '<div class="solution"><i class="fa fa-square" style="color:' + grades[i] + '"></i></div><div>&nbsp;' + labels[i] + '</div>';
+			}
+			// services
+			div.innerHTML += '<div class="service"><i class="fa fa-eye"></i></div><div>Solutions WEB</div>';
+			div.innerHTML += '<div class="service"><i class="fa fa-phone"></i></div><div>Solutions H323</div>';
 		break;
 		case "enrvid": 
-		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['green','purple','orange','blue','cadetblue'],
-		    labels = ['Ubicast','Mediasite','Inwicast','AudioVidéoCast','Apple Podcast Producer'];
-
-		div.innerHTML += "This is ENRVID legend<br><hr />";
-
-		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
-		}
+			var div = L.DomUtil.create('div', 'info legend'),
+			    grades = [myGreen,myPurple,myOrange,myBlue,myCadetblue],
+			    labels = ['Ubicast','Mediasite','Inwicast','AudioVidéoCast','Apple Podcast Producer'];
+			div.innerHTML += "Services d'ENREGISTREMENT VIDÉO<br><hr />";
+			// solutions
+			for (var i = 0; i < grades.length; i++) {
+			    div.innerHTML += '<div class="solution"><i class="fa fa-square" style="color:' + grades[i] + '"></i></div><div>&nbsp;' + labels[i] + '</div>';
+			}
+			// services
+			div.innerHTML += '<div class="service"><i class="fa fa-video-camera"></i></div><div>Service d\'enregistrement vidéo </div>';
+			div.innerHTML += '<div class="service"><i class="fa fa-refresh fa-spin"></i></div><div>Service en cours d\'évolution</div>';
 		break;
 		case "stream": 
 		var div = L.DomUtil.create('div', 'info legend'),
-		    grades = ['darkred','darkred','darkred'],
-		    labels = ['xxx','xxx','xxx'];
+		    grades = [myGreen,myPurple,myOrange,myBlue,myDarkpurple,myDarkred,myCadetblue,myRed,myDarkgreen],
+		    labels = ['Ubicast','Polycom','Inwicast','AudioVidéoCast','Wirecast','Wowza','Epiphan Broadcaster','Adobe Connect / MediaCenter','Opencast Matterhorn'];
 
-		div.innerHTML += "This is STREAM legend<br><hr />";
+		div.innerHTML += "Services de RETRANSMISSION EN DIRECT<br><hr />";
 
-		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
-		}
+			// solutions
+			for (var i = 0; i < grades.length; i++) {
+			    div.innerHTML += '<div class="solution"><i class="fa fa-square" style="color:' + grades[i] + '"></i></div><div>&nbsp;' + labels[i] + '</div>';
+			}
+			// services
+			/*
+			div.innerHTML += '<div class="service"><i class="fa fa-eye"></i></div><div>Solutions WEB</div>';
+			div.innerHTML += '<div class="service"><i class="fa fa-phone"></i></div><div>Solutions H323</div>';
+			*/
 		break;
 		case "sondag": 
 		var div = L.DomUtil.create('div', 'info legend'),
 		    grades = ['darkred','darkred','darkred'],
 		    labels = ['xxx','xxx','xxx'];
 
-		div.innerHTML += "This is SONDAGES legend<br><hr />";
+		div.innerHTML += "Services de SONDAGES<br><hr />";
 
-		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
-		}
+			// solutions
+			for (var i = 0; i < grades.length; i++) {
+			    div.innerHTML += '<div class="solution"><i class="fa fa-square" style="color:' + grades[i] + '"></i></div><div>&nbsp;' + labels[i] + '</div>';
+			}
+			// services
+			div.innerHTML += '<div class="service"><i class="fa fa-eye"></i></div><div>Solutions WEB</div>';
+			div.innerHTML += '<div class="service"><i class="fa fa-phone"></i></div><div>Solutions H323</div>';
 		break;
 		case "autom": 
 		var div = L.DomUtil.create('div', 'info legend'),
 		    grades = ['darkred','darkred','darkred'],
 		    labels = ['xxx','xxx','xxx'];
 
-		div.innerHTML += "This is AUTOM legend<br><hr />";
+		div.innerHTML += "Services de SALLES AUTOMATISÉES<br><hr />";
 
-		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
-		}
+			// solutions
+			for (var i = 0; i < grades.length; i++) {
+			    div.innerHTML += '<div class="solution"><i class="fa fa-square" style="color:' + grades[i] + '"></i></div><div>&nbsp;' + labels[i] + '</div>';
+			}
+			// services
+			div.innerHTML += '<div class="service"><i class="fa fa-eye"></i></div><div>Solutions WEB</div>';
+			div.innerHTML += '<div class="service"><i class="fa fa-phone"></i></div><div>Solutions H323</div>';
 		break;
 		case "autr": 
 		var div = L.DomUtil.create('div', 'info legend'),
 		    grades = ['darkred','darkred','darkred'],
 		    labels = ['xxx','xxx','xxx'];
 
-		div.innerHTML += "This is AUTRES legend<br><hr />";
+		div.innerHTML += "Services AUTRES<br><hr />";
 
-		for (var i = 0; i < grades.length; i++) {
-		    div.innerHTML += '<div style="float:left; width:15px; height:15px; background:' + grades[i] + '"></div><div>&nbsp;' + labels[i] + '</div>';
-		}
+			// solutions
+			for (var i = 0; i < grades.length; i++) {
+			    div.innerHTML += '<div class="solution"><i class="fa fa-square" style="color:' + grades[i] + '"></i></div><div>&nbsp;' + labels[i] + '</div>';
+			}
+			// services
+			div.innerHTML += '<div class="service"><i class="fa fa-eye"></i></div><div>Solutions WEB</div>';
+			div.innerHTML += '<div class="service"><i class="fa fa-phone"></i></div><div>Solutions H323</div>';
 		break;
 		default :
-			div.innerHTML += "This is no legend<br><hr />";
+			div.innerHTML += "Carte des services d'no legend<br><hr />";
 		}
 		
-		div.innerHTML += "<em>Les icônes en rotation symbolisent des chantiers en cours.</em><br>";
+		if ((mapCalled!='info')&&(mapCalled!='vp')) {
+			div.innerHTML += '<div class="service"><i class="fa fa-refresh fa-spin"></i></div><div>Service en cours d\'évolution</div>';
+		}
 		div.innerHTML += "<hr />";
 		div.innerHTML += "<a href='index.html'>Accueil</a> - <a href='vp.html'>VP</a> - <a href='visio.html'>Visio</a> - <a href='enrvid.html'>EnrVid</a> - <a href='stream.html'>Stream</a> - <a href='sondag.html'>Sondages</a> - <a href='autom.html'>Autom</a> - <a href='autr.html'>Autres</a>";
 
